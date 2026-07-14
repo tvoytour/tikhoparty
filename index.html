@@ -126,6 +126,31 @@ header{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:c
 .chkcols{display:grid;grid-template-columns:1fr 1fr;gap:0 70px;margin-top:44px}
 @media(max-width:800px){.chkcols{grid-template-columns:1fr}}
 
+/* calculator */
+.calc{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;margin-top:40px;align-items:start}
+@media(max-width:900px){.calc{grid-template-columns:1fr;gap:30px}}
+.cpanel{background:rgba(255,255,255,.07);border:1px solid var(--cardline);border-radius:20px;padding:clamp(22px,2.6vw,32px);backdrop-filter:blur(4px)}
+.seg{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.seg button{flex:1;min-width:150px;padding:12px 16px;border-radius:100px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.05);color:var(--mute);font-family:'Onest';font-weight:700;font-size:14px;cursor:pointer;transition:.15s}
+.seg button.on{background:var(--ch1);border-color:var(--ch1);color:#12030b;box-shadow:0 0 22px rgba(255,46,126,.4)}
+.seg-note{font-size:12.5px;color:var(--mute);margin-bottom:22px;min-height:18px}
+.crow{margin-bottom:22px}
+.crow .lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.crow .lab span:first-child{font-family:'Oswald';font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.crow .lab b{font-family:'Oswald';font-size:22px;color:var(--white)}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:6px;outline:none;
+  background:linear-gradient(90deg,var(--ch2) var(--fill,50%),rgba(255,255,255,.14) var(--fill,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;
+  background:var(--white);border:3px solid var(--ch2);box-shadow:0 0 16px rgba(37,227,255,.7);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--white);
+  border:3px solid var(--ch2);box-shadow:0 0 16px rgba(37,227,255,.7);cursor:pointer}
+.cout .num-big{font-family:'Oswald';font-weight:700;font-size:clamp(44px,5.6vw,68px);line-height:1;color:var(--ch3);text-shadow:0 0 40px rgba(198,255,62,.35)}
+.cout .approx{font-size:13px;color:var(--mute);margin-top:6px}
+.bd{margin:20px 0;border-top:1px solid var(--cardline)}
+.bd div{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--cardline);font-size:14.5px}
+.bd div span:first-child{color:var(--mute)}
+.bd div b{white-space:nowrap}
 /* form */
 .lead{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;margin-top:44px}
 @media(max-width:900px){.lead{grid-template-columns:1fr;gap:40px}}
@@ -164,6 +189,7 @@ footer .fine{font-size:13px;color:var(--mute)}
   <a class="logo" href="#top">ТИХО<span class="bang">!</span></a>
   <span class="tagline">тихие вечеринки под ключ</span>
   <nav class="headnav">
+    <a class="tel" href="#calc" style="color:var(--ch3)">Цены</a>
     <a class="tel" href="tel:+79162997753">+7 916 299-77-53</a>
     <a class="btn btn-hot btn-sm" href="#demo">Хочу демо</a>
   </nav>
@@ -276,6 +302,48 @@ footer .fine{font-size:13px;color:var(--mute)}
   </div>
 </section>
 
+<!-- CALCULATOR -->
+<section id="calc" class="bg-cyan">
+  <div class="wrap">
+    <div class="k rv" style="color:var(--ch2)">Цены — сразу, без «оставьте заявку»</div>
+    <h2 class="rv">Посчитайте свою вечеринку<br>за 10 секунд</h2>
+    <div class="calc">
+      <div class="cpanel rv">
+        <div class="seg" id="modeseg">
+          <button class="on" data-mode="turnkey">Под ключ с DJ</button>
+          <button data-mode="rent">Только оборудование</button>
+        </div>
+        <div class="seg-note" id="segnote">Для площадок и праздников: DJ, свет, наушники, администратор — вы ничего не делаете.</div>
+        <div class="crow">
+          <div class="lab"><span>Гостей</span><b id="v-guests">60</b></div>
+          <input type="range" id="r-guests" min="20" max="200" step="5" value="60">
+        </div>
+        <div class="crow" id="row-hours">
+          <div class="lab"><span>Часов музыки</span><b id="v-hours">4</b></div>
+          <input type="range" id="r-hours" min="2" max="8" step="1" value="4">
+        </div>
+      </div>
+      <div class="cout rv">
+        <div class="k" style="color:var(--mute);letter-spacing:.24em">Ориентир стоимости</div>
+        <div class="num-big" id="c-price">—</div>
+        <div class="approx">Точная смета — после уточнения площадки и даты. Партнёрам фиксируем цену на сезон.</div>
+        <div class="bd" id="c-bd"></div>
+        <a class="btn btn-hot" href="#demo" id="c-cta">Забронировать дату</a>
+      </div>
+    </div>
+
+    <h2 class="rv" style="font-size:clamp(22px,2.8vw,34px);margin-top:64px">Почему с нами, а не с прокатом наушников</h2>
+    <div class="grid3" style="margin-top:28px">
+      <div class="card b3 rv"><span class="cdot ch3"></span><h3>Цена — вот она, выше</h3><p>Мы единственные на рынке публикуем цены: у 12 из 13 конкурентов вместо прайса — «оставьте заявку» и ожидание ответа.</p></div>
+      <div class="card b1 rv"><span class="cdot ch1"></span><h3>Праздник, а не прокат железа</h3><p>Остальные сдают наушники. У нас в базовой цене — DJ, свет, администратор на весь вечер и монтаж за 30 минут.</p></div>
+      <div class="card b2 rv"><span class="cdot ch2"></span><h3>Гарантия тишины — деньгами</h3><p>Хоть одна жалоба на шум за вечер — вернём стоимость. Такого не предлагает никто.</p></div>
+      <div class="card b1 rv"><span class="cdot ch1"></span><h3>Запас наушников +15% — бесплатно</h3><p>Светящиеся LED-наушники на всех гостей и резерв сверху уже в цене. Никаких доплат «за лишнюю голову».</p></div>
+      <div class="card b2 rv"><span class="cdot ch2"></span><h3>Доставка в своём городе — 0 ₽</h3><p>Привоз, монтаж и демонтаж включены. Розетки не нужны — оборудование автономно 8–10 часов.</p></div>
+      <div class="card b3 rv"><span class="cdot ch3"></span><h3>Эксклюзив района — партнёрам</h3><p>Первой площадке в локации — эксклюзив и фикс-цена на сезон: конкурентов рядом не подключаем.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- WORLD PROOF -->
 <section class="bg-cyan">
   <div class="wrap">
@@ -365,6 +433,57 @@ footer .fine{font-size:13px;color:var(--mute)}
 </footer>
 
 <script>
+// Калькулятор. Формула подобрана под ориентиры дека (35к/30 гостей, 75к/100 гостей)
+// и рынок аренды (300-500 ₽/наушник): правится в этих константах.
+const CFG = {
+  turnkey: { base: 22000, perHp: 420, baseHours: 3, extraHour: 3000 },   // база: DJ+свет+админ+монтаж, 3 часа
+  rent:    { perHpSmall: 450, perHpBulk: 400, bulkFrom: 51, minHp: 20 }, // сутки аренды, передатчики и доставка включены
+};
+const RESERVE = 1.15; // запас наушников +15%
+let mode = 'turnkey';
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
+function fill(r){ r.style.setProperty('--fill', (100*(r.value-r.min)/(r.max-r.min)) + '%'); }
+function calc(){
+  const g = +$('r-guests').value, h = +$('r-hours').value;
+  $('v-guests').textContent = g; $('v-hours').textContent = h;
+  const hp = Math.ceil(g * RESERVE / 5) * 5;
+  let total, bd = [];
+  if (mode === 'turnkey') {
+    const c = CFG.turnkey, extra = Math.max(0, h - c.baseHours) * c.extraHour;
+    total = c.base + hp * c.perHp + extra;
+    bd = [[`DJ, свет, администратор, монтаж (${c.baseHours} ч)`, fmt(c.base)],
+          [`LED-наушники ${hp} шт (гости +15% запас)`, fmt(hp * c.perHp)]];
+    if (extra) bd.push([`Дополнительные часы ×${h - c.baseHours}`, fmt(extra)]);
+    bd.push(['Доставка и гарантия тишины', 'включены']);
+  } else {
+    const c = CFG.rent, n = Math.max(hp, c.minHp), rate = n >= c.bulkFrom ? c.perHpBulk : c.perHpSmall;
+    total = n * rate;
+    bd = [[`LED-наушники ${n} шт × ${rate} ₽ (сутки)`, fmt(total)],
+          ['Передатчики (3 канала)', 'включены'], ['Доставка по городу', 'включена']];
+  }
+  total = Math.round(total / 500) * 500;
+  $('c-price').textContent = '~ ' + fmt(total);
+  $('c-bd').innerHTML = bd.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('');
+  $('c-cta').dataset.summary = mode === 'turnkey'
+    ? `Расчёт с сайта: под ключ с DJ, ~${g} гостей, ${h} ч — ориентир ${fmt(total)}`
+    : `Расчёт с сайта: только оборудование, ~${g} гостей — ориентир ${fmt(total)}`;
+}
+['r-guests', 'r-hours'].forEach(id => $(id).addEventListener('input', e => { fill(e.target); calc(); }));
+document.querySelectorAll('#modeseg button').forEach(b => b.addEventListener('click', () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll('#modeseg button').forEach(x => x.classList.toggle('on', x === b));
+  $('segnote').textContent = mode === 'turnkey'
+    ? 'Для площадок и праздников: DJ, свет, наушники, администратор — вы ничего не делаете.'
+    : 'Для тех, у кого свой DJ: наушники с передатчиками на сутки, от 20 штук.';
+  $('row-hours').style.display = mode === 'turnkey' ? '' : 'none';
+  calc();
+}));
+$('c-cta').addEventListener('click', () => {
+  const t = $('f-msg'); if (t && !t.value.trim()) t.value = $('c-cta').dataset.summary || '';
+});
+fill($('r-guests')); fill($('r-hours')); calc();
+
 // EQ bars
 document.querySelectorAll('[data-eq]').forEach(row=>{
   const n=+row.dataset.eq, lo=+row.dataset.min, hi=+row.dataset.max, cols=['ch1','ch2','ch3'];
